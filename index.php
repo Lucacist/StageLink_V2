@@ -1,8 +1,4 @@
 <?php
-/**
- * This is the router, the main entry point of the application.
- * It handles the routing and dispatches requests to the appropriate controller methods.
- */
 
 require "vendor/autoload.php";
 
