@@ -1,0 +1,133 @@
+.contenu {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.offres-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container {
+  background-color: var(--couleur-container);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: auto;
+  padding: 40px;
+  border-radius: 10px;
+  border: solid 1px var(--couleur-bordure-container);
+  transition: all 0.2s;
+}
+.container:hover {
+  transform: scale(1.01);
+}
+.container:hover .button {
+  color: var(--texte-button);
+  background-color: var(--couleur-button);
+}
+h2 {
+  font-size: 28px;
+  text-align: center;
+  font-weight: 500;
+}
+h3 {
+  font-size: 20px;
+  font-weight: 500;
+}
+.offre {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 90vw;
+  max-width: 1220px;
+  margin: 40px auto 0 auto;
+}
+.container h2 {
+  width: fit-content;
+  font-weight: 500;
+  font-size: 24px;
+}
+.entreprise {
+  font-size: 14px;
+  color: var(--couleur-input-border);
+}
+.balise,
+.balise2 {
+  font-size: 14px;
+  background-color: var(--couleur-balise);
+  width: fit-content;
+  padding: 5px;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.balise2 {
+  background-color: var(--couleur-rouge);
+}
+
+.balise-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.competences {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.date {
+  font-size: 14px;
+  color: var(--couleur-input-border);
+}
+.like-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.like-svg {
+  width: 20px;
+  transition: fill 0.2s ease-in-out, stroke 0.2s ease-in-out;
+}
+.button {
+  font-size: 14px;
+  border: solid 1px #000;
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 100px;
+}
+.postuler {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+}
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  z-index: 100;
+  position: relative;
+}
+
+/* Style pour le cœur liké */
+.like-button.liked svg.like-svg {
+  fill: red !important;
+  stroke: red !important;
+}
+
+/* Pour assurer la compatibilité avec d'autres éléments */
+.liked .like-svg {
+  fill: red !important;
+  stroke: red !important;
+}
+
+a.offre-link {
+  text-decoration: none;
+  color: inherit;
+}

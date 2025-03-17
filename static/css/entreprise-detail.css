@@ -1,0 +1,439 @@
+.entreprise-details {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.centre {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+}
+
+.navbar svg {
+  width: 22px;
+  height: 16px;
+}
+
+.texte {
+  font-size: var(--taille-texte);
+}
+
+/* Contenu principal */
+.entreprise-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* En-tête et titre */
+.entreprise-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.entreprise-header h1 {
+  font-size: 32px;
+  color: var(--primary-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* Boîtes d'informations */
+.info-box {
+  background-color: var(--couleur-container);
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid var(--couleur-bordure-container);
+}
+
+/* Système de notation */
+.rating-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 5px;
+  font-size: 24px;
+}
+
+.star {
+  color: #ddd;
+}
+
+.star.full {
+  color: var(--couleur-orange);
+}
+
+.star.half {
+  position: relative;
+  color: #ddd;
+}
+
+.star.half::before {
+  content: "★";
+  position: absolute;
+  color: var(--couleur-avis);
+  width: 50%;
+  overflow: hidden;
+}
+
+.rating-value {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.rating-count {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Sections d'entreprise */
+.entreprise-section {
+  background-color: var(--couleur-container);
+  border-radius: 8px;
+  padding: 25px;
+  border: 1px solid var(--couleur-bordure-container);
+
+}
+
+.entreprise-section h2 {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* Section contact */
+.contact-section {
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contact-item strong {
+  font-weight: bold;
+}
+
+/* Section offres */
+.offres-section {
+  margin-bottom: 20px;
+}
+
+.no-offres {
+  font-style: italic;
+  color: #666;
+}
+
+.offres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.offre-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.offre-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.offre-card h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.offre-dates {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.offre-desc {
+  margin-bottom: 10px;
+}
+
+.offre-remuneration {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.offre-candidatures {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.btn-voir {
+  display: inline-block;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.btn-voir:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Section avis */
+.avis-section {
+  margin-bottom: 20px;
+}
+
+.no-avis {
+  font-style: italic;
+  color: #666;
+}
+
+.add-avis {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.add-avis h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.avis-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rating-input {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.stars-input {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.stars-input input {
+  display: none;
+}
+
+.stars-input label {
+  font-size: 25px;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.stars-input input:checked ~ label,
+.stars-input label:hover ~ label,
+.stars-input label:hover,
+.stars-input label.active {
+  color: var(--couleur-avis);
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  font-size: 30px;
+  color: #ddd;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star.active {
+  color: var(--couleur-orange);
+}
+
+#rating-text {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+#submit-rating {
+  display: block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+#submit-rating.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.btn-submit {
+  align-self: flex-start;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid var(--couleur-button);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+  background-color: transparent;
+  border: 1px solid var(--couleur-button);
+}
+
+/* Nouvelle section de distribution des notes */
+.rating-distribution {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.rating-distribution h3 {
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.rating-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rating-bar {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-label {
+  font-size: 14px;
+  text-align: center;
+}
+
+.bar-container {
+  background-color: #f0f0f0;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background-color: var(--couleur-avis);
+}
+
+.rating-count {
+  font-size: 14px;
+  color: #666;
+  text-align: right;
+}
+
+.avis-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.avis-item {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: white;
+}
+
+.avis-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.avis-user {
+  font-weight: 500;
+}
+
+.avis-rating {
+  display: flex;
+  gap: 2px;
+}
+
+.avis-rating .star {
+  font-size: 16px;
+}
+
+.avis-content p {
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .entreprise-details {
+    margin: 1rem auto;
+  }
+  
+  .offres-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .rating-input {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .rating-bar {
+    grid-template-columns: 40px 1fr 30px;
+  }
+  
+  .avis-header {
+    flex-direction: column;
+    gap: 5px;
+  }
+}

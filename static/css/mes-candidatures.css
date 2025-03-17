@@ -1,0 +1,184 @@
+/* ====================================
+   1. LAYOUT PRINCIPAL
+   ==================================== */
+   .candidatures-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.candidatures-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+/* ====================================
+   2. CARTES DE CANDIDATURE
+   ==================================== */
+.candidature-item {
+    background-color: var(--couleur-container);
+    border: 1px solid var(--couleur-bordure-container);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.candidature-item h2 {
+    color: var(--primary-color);
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+}
+
+.candidature-item h3 {
+    color: #666;
+    margin: 0 0 1rem;
+    font-size: 1.2rem;
+}
+
+/* ====================================
+   3. DÉTAILS DES CANDIDATURES
+   ==================================== */
+.candidature-details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.detail-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.value {
+    font-weight: 500;
+}
+
+/* ====================================
+   4. INDICATEURS DE STATUT
+   ==================================== */
+.status {
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.status.en_attente {
+    background-color: var(--couleur-orange);
+    color: #664500;
+}
+
+.status.acceptee {
+    background-color: var(--couleur-vert);
+    color: #0d5530;
+}
+
+.status.refusee {
+    background-color: var(--couleur-rouge);
+    color: #8b0000;
+}
+
+/* ====================================
+   5. LETTRE DE MOTIVATION
+   ==================================== */
+.lettre-motivation {
+    background-color: var(--couleur-backtexte);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.lettre-motivation h4 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+}
+
+.lettre-motivation p {
+    margin: 0;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+/* ====================================
+   6. BOUTONS ET ACTIONS
+   ==================================== */
+.candidature-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Base des boutons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    gap: 0.5rem;
+    min-width: 140px;
+}
+
+.btn i {
+    font-size: 1rem;
+}
+
+/* Variantes de boutons */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: rgb(8, 8, 8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color-dark, #0056b3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--couleur-backtexte, #f8f9fa);
+    transform: translateY(-2px);
+}
+
+.btn-disabled {
+    background-color: #e0e0e0;
+    color: #858585;
+    cursor: not-allowed;
+}
+
+/* ====================================
+   7. RESPONSIVE
+   ==================================== */
+@media (max-width: 768px) {
+    .candidature-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}

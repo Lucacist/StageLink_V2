@@ -1,50 +1,131 @@
 <?php
+// Point d'entrée principal de l'application
+session_start();
 
-require "vendor/autoload.php";
+// Définir la racine de l'application
+define('ROOT_PATH', __DIR__);
 
-use App\Controllers\TaskController;
+// Inclure la configuration
+require_once ROOT_PATH . '/src/config/config.php';
 
-$loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig = new \Twig\Environment($loader, [
-    'debug' => true
-]);
+// Si l'utilisateur n'est pas connecté et essaie d'accéder à une route qui nécessite une authentification,
+// il est redirigé vers la page de connexion
+$public_routes = ['login', 'logout'];
+$route = isset($_GET['route']) ? $_GET['route'] : 'accueil';
 
-if (isset($_GET['uri'])) {
-    $uri = $_GET['uri'];
-} else {
-    $uri = '/';
+// Rediriger vers login si l'utilisateur n'est pas connecté et tente d'accéder à une route protégée
+if (!isset($_SESSION['user_id']) && !in_array($route, $public_routes)) {
+    header('Location: index.php?route=login');
+    exit();
 }
 
-$controller = new TaskController($twig);
-
-switch ($uri) {
-    case '/':
-        // TODO : call the welcomePage method of the controller
-        // echo 'Welcome page';
-        $controller->welcomePage();
+// Routage des requêtes vers les contrôleurs appropriés
+switch ($route) {
+    case 'accueil':
+        require_once ROOT_PATH . '/src/Controllers/AccueilController.php';
+        $controller = new AccueilController();
+        $controller->index();
         break;
-    case 'add_task':
-        // TODO : call the addTask method of the controller
-        echo 'Add task action';
+    
+    case 'login':
+        require_once ROOT_PATH . '/src/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->login();
         break;
-    case 'check_task':
-        // TODO : call the checkTask method of the controller
-        echo 'Check task action';
+    
+    case 'entreprises':
+        require_once ROOT_PATH . '/src/Controllers/EntrepriseController.php';
+        $controller = new EntrepriseController();
+        $controller->index();
         break;
-    case 'history':
-        // TODO : call the historyPage method of the controller
-        echo 'History page';
+    
+    case 'entreprise_details':
+        require_once ROOT_PATH . '/src/Controllers/EntrepriseController.php';
+        $controller = new EntrepriseController();
+        $controller->details();
         break;
-    case 'uncheck_task':
-        // TODO : call the uncheckTask method of the controller
-        echo 'Uncheck task action';
+    
+    case 'offres':
+        require_once ROOT_PATH . '/src/Controllers/OffreController.php';
+        $controller = new OffreController();
+        $controller->index();
         break;
-    case 'about':
-        // TODO : call the aboutPage method of the controller
-        echo 'About page';
+    
+    case 'offre_details':
+        require_once ROOT_PATH . '/src/Controllers/OffreController.php';
+        $controller = new OffreController();
+        $controller->details();
         break;
+    
+    case 'creer-offre':
+        require_once ROOT_PATH . '/src/Controllers/OffreController.php';
+        $controller = new OffreController();
+        $controller->create();
+        break;
+    
+    case 'dashboard':
+        require_once ROOT_PATH . '/src/Controllers/DashboardController.php';
+        $controller = new DashboardController();
+        $controller->index();
+        break;
+    
+    case 'like':
+        require_once ROOT_PATH . '/src/Controllers/WishlistController.php';
+        $controller = new WishlistController();
+        $controller->toggleLike();
+        break;
+    
+    case 'rate_entreprise':
+        require_once ROOT_PATH . '/src/Controllers/EntrepriseController.php';
+        $controller = new EntrepriseController();
+        $controller->rate();
+        break;
+    
+    case 'traiter_candidature':
+        require_once ROOT_PATH . '/src/Controllers/CandidatureController.php';
+        $controller = new CandidatureController();
+        $controller->traiter();
+        break;
+    
+    case 'mes_candidatures':
+        require_once ROOT_PATH . '/src/Controllers/CandidatureController.php';
+        $controller = new CandidatureController();
+        $controller->mesCandidatures();
+        break;
+    
+    case 'confirmation_candidature':
+        require_once ROOT_PATH . '/src/Controllers/CandidatureController.php';
+        $controller = new CandidatureController();
+        $controller->confirmation();
+        break;
+    
+    case 'traiter_entreprise':
+        require_once ROOT_PATH . '/src/Controllers/EntrepriseController.php';
+        $controller = new EntrepriseController();
+        $controller->traiter();
+        break;
+    
+    case 'traiter_offre':
+        require_once ROOT_PATH . '/src/Controllers/OffreController.php';
+        $controller = new OffreController();
+        $controller->traiter();
+        break;
+        
+    case 'profil':
+        require_once ROOT_PATH . '/src/Controllers/ProfilController.php';
+        $controller = new ProfilController();
+        $controller->index();
+        break;
+        
+    case 'logout':
+        require_once ROOT_PATH . '/src/Controllers/AuthController.php';
+        $controller = new AuthController();
+        $controller->logout();
+        break;
+        
     default:
-        // TODO : return a 404 error
-        echo '404 Not Found';
-        break;
+        // Page 404 ou redirection vers la page d'accueil
+        header('Location: index.php?route=accueil');
+        exit();
 }
+?>

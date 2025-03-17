@@ -1,0 +1,170 @@
+.offre-details {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.centre {
+  margin-bottom: 2rem;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+}
+
+
+
+.offre-content {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.offre-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.offre-header h3 {
+  color: #666;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.offre-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.competences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.competence-tag {
+  background-color: var(--couleur-rouge);
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.info-grid {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.info-item {
+  background-color: var(--couleur-balise);
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.actions {
+  text-align: center;
+}
+
+.btn-postuler,
+.btn-submit {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: var(--couleur-button);
+  color: var(--texte-button);
+  text-decoration: none;
+  border-radius: 99px;
+  transition: background-color 0.3s;
+  border: 0;
+}
+
+.btn-postuler:hover,
+.btn-submit:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-cancel {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: #f0f0f0;
+  color: #666;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+.form-candidature {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-candidature h3 {
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.form-candidature form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  display: block;
+  color: var(--couleur-input-border);
+}
+
+.form-group input[type="file"] {
+  width: auto;
+  border: 1px solid var(--couleur-input-border);
+  border-radius: 4px;
+  height: fit-content;
+  padding: 2px 3px;
+  background-color: transparent;
+}
+
+.form-group textarea {
+  border: 1px solid var(--couleur-input-border);
+  border-radius: 4px;
+  height: 150px;
+  padding: 2px 3px;
+  background-color: transparent;
+}
+
+.form-actions {
+  text-align: center;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 500;
+  width: 100%;
+}

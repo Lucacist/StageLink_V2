@@ -1,0 +1,65 @@
+.contenu {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.entreprises-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container {
+  background-color: var(--couleur-container);
+  gap: 20px;
+  width: auto;
+  padding: 40px;
+  border-radius: 10px;
+  border: solid 1px var(--couleur-bordure-container);
+  transition: all 0.2s;
+}
+
+h2 {
+  font-size: 28px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.container h2 {
+  width: fit-content;
+  font-size: 24px;
+}
+
+.entreprise-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.entreprise-info p {
+  width: fit-content;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.entreprise-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.note {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.container-description {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+.etoile.active {
+  color: var(--couleur-orange);
+}
+.etoile {
+  font-size: 1.5rem;
+
+}

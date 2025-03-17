@@ -1,0 +1,120 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: var(--couleur-container);
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  align-items: center;
+  width: fit-content;
+  max-width: 650px;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.stagelink {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 10px;
+  position: relative;
+  
+}
+
+input {
+  width: 270px;
+  border: 1px solid var(--couleur-input-border);
+  border-radius: 4px;
+  height: 30px;
+  padding: 2px 3px;
+  background-color: transparent;
+}
+
+.bloc-input {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+form button {
+  display: flex;
+  padding: 0;
+  border: 0;
+  color: var(--texte-button);
+  background-color: var(--couleur-button);
+  width: fit-content;
+  padding: 7px 24px;
+  border-radius: 30px;
+  font-size: 16px;
+}
+
+form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.message {
+  color: red;
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.texte-intro {
+  background-color: var(--couleur-backtexte);
+  padding: 15px;
+  border-radius: 10px;
+  width: auto;
+}
+label .password-icon {
+  display: flex;
+  position: absolute;
+  width: 20px;
+  color: var(--couleur-input-border);
+  transition: all 0.2s;
+  right: 8px;
+  bottom: 5px;
+}
+label .password-icon:hover {
+  cursor: pointer;
+  color: #ff4754;
+}
+
+label .password-icon .feather-eye-off {
+  display: none;
+}
+
+
+@media (max-width: 800px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 2vw;
+  }
+}
+@media (max-width: 400px) {
+  input {
+    max-width: 70vw;
+  }
+}
