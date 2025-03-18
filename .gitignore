@@ -1,0 +1,54 @@
+# Dépendances
+/vendor/
+/node_modules/
+
+# Fichiers uploadés
+/uploads/
+/public/uploads/
+
+# Cache et logs
+/cache/
+/logs/
+*.log
+*.cache
+
+# Fichiers d'environnement
+.env
+.env.local
+.env.*.local
+
+# Fichiers de configuration spécifiques à l'IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Fichiers de configuration locaux
+/config/parameters.yml
+/config/parameters.ini
+
+# Fichiers temporaires
+*.swp
+*.swo
+*~
+*.tmp
+*.bak
+
+# Fichiers de build
+/build/
+/dist/
+
+# Fichiers de base de données
+*.sqlite
+*.db
+*.sql
+
+# Fichiers de composer
+composer.phar
+/vendor/

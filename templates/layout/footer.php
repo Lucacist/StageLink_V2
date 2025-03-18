@@ -5,7 +5,9 @@
     </div>
     <div class="foot-contain">
         <div class="mentions">
-            <!-- Liens supprimés -->
+            <a href="" class="texte-footer">Mentions légales</a>
+            <a href="templates\layout\politique-donnees.html" class="texte-footer">Politique de protection des données</a>
+            <a href="templates\layout\CGU.html" class="texte-footer">CGU</a>
         </div>
         <div class="equipe-container">
             <div class="texte-footer">Équipe du projet</div>
