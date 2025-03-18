@@ -1,27 +1,50 @@
 <?php
+require_once ROOT_PATH . '/src/Config/TwigConfig.php';
+
 class Controller {
+    protected $twig;
+    
+    public function __construct() {
+        try {
+            $this->twig = TwigConfig::getInstance()->getTwig();
+        } catch (\Exception $e) {
+            error_log('Erreur lors de l\'initialisation de Twig: ' . $e->getMessage());
+            die('Erreur lors de l\'initialisation de Twig: ' . $e->getMessage());
+        }
+    }
+    
     protected function render($view, $data = []) {
-        extract($data);
+        // Déterminer le chemin du template Twig
+        $templatePath = $this->getTemplatePath($view);
         
-        ob_start();
-        
+        try {
+            // Rendre le template avec Twig
+            return $this->twig->render($templatePath, $data);
+        } catch (\Twig\Error\LoaderError $e) {
+            // Gérer l'erreur si le template n'existe pas
+            error_log('Erreur Twig: ' . $e->getMessage());
+            return 'Erreur: Template non trouvé - ' . $templatePath;
+        } catch (\Exception $e) {
+            // Gérer les autres erreurs
+            error_log('Erreur: ' . $e->getMessage());
+            return 'Erreur lors du rendu du template: ' . $e->getMessage();
+        }
+    }
+    
+    private function getTemplatePath($view) {
         // Vérifier si le chemin de vue contient déjà un séparateur de répertoire
         if (strpos($view, '/') !== false) {
             // Le chemin contient déjà un séparateur, utiliser tel quel
-            include ROOT_PATH . '/templates/' . $view . '.php';
+            return $view . '.twig';
         } 
         // Gestion des cas particuliers pour les vues
-        else if ($view === 'offres' || $view === 'offre_details' || $view === 'creer-offre') {
-            include ROOT_PATH . '/templates/offre/' . $view . '.php';
+        else if ($view === 'offres' || $view === 'offre_details' || $view === 'creer-offre' || $view === 'confirmation_candidature' || $view === 'mes_candidatures') {
+            return 'offre/' . $view . '.twig';
         } else if ($view === 'Entreprises' || $view === 'entreprise_details') {
-            include ROOT_PATH . '/templates/entreprise/' . $view . '.php';
+            return 'entreprise/' . $view . '.twig';
         } else {
-            include ROOT_PATH . '/templates/' . $view . '/' . $view . '.php';
+            return $view . '/' . $view . '.twig';
         }
-        
-        $content = ob_get_clean();
-        
-        return $content;
     }
     
     protected function hasPermission($permissionCode) {

@@ -1,11 +1,10 @@
-<?php
-include(ROOT_PATH . '/templates/layout/header.php');
-?>
+{% extends 'layout/base.twig' %}
 
-<head>
+{% block stylesheets %}
     <link rel="stylesheet" href="static/css/offre-details.css">
-</head>
+{% endblock %}
 
+{% block content %}
 <div class="offre-details">
     <div class="centre">
         <a href="index.php?route=offres" class="navbar">
@@ -18,44 +17,44 @@ include(ROOT_PATH . '/templates/layout/header.php');
 
     <div class="offre-content">
         <div class="offre-header">
-            <h2><?= htmlspecialchars($offre['titre']) ?></h2>
-            <h3><?= htmlspecialchars($offre['entreprise_nom']) ?></h3>
+            <h2>{{ offre.titre }}</h2>
+            <h3>{{ offre.entreprise_nom }}</h3>
         </div>
 
         <div class="offre-section">
             <h3>Description du stage</h3>
-            <p><?= nl2br(htmlspecialchars($offre['description'])) ?></p>
+            <p>{{ offre.description|nl2br }}</p>
         </div>
 
-        <?php if(!empty($competences)): ?>
+        {% if competences is not empty %}
         <div class="offre-section">
             <h3>Compétences requises</h3>
             <div class="competences">
-                <?php foreach($competences as $competence): ?>
-                    <span class="competence-tag"><?= htmlspecialchars($competence['nom']) ?></span>
-                <?php endforeach; ?>
+                {% for competence in competences %}
+                    <span class="competence-tag">{{ competence.nom }}</span>
+                {% endfor %}
             </div>
         </div>
-        <?php endif; ?>
+        {% endif %}
 
         <div class="offre-section">
             <h3>Informations pratiques</h3>
             <div class="info-grid">
                 <div class="info-item">
                     <strong>Période :</strong>
-                    <p>Du <?= date('d/m/Y', strtotime($offre['date_debut'])) ?> au <?= date('d/m/Y', strtotime($offre['date_fin'])) ?></p>
+                    <p>Du {{ offre.date_debut|date('d/m/Y') }} au {{ offre.date_fin|date('d/m/Y') }}</p>
                 </div>
                 
-                <?php if($offre['base_remuneration']): ?>
+                {% if offre.base_remuneration %}
                 <div class="info-item">
                     <strong>Base de rémunération :</strong>
-                    <p><?= number_format($offre['base_remuneration'], 2) ?> €</p>
+                    <p>{{ offre.base_remuneration|number_format(2) }} €</p>
                 </div>
-                <?php endif; ?>
+                {% endif %}
                 
                 <div class="info-item">
                     <strong>Candidatures reçues :</strong>
-                    <p><?= $offre['nombre_candidatures'] ?></p>
+                    <p>{{ offre.nombre_candidatures }}</p>
                 </div>
             </div>
         </div>
@@ -63,22 +62,20 @@ include(ROOT_PATH . '/templates/layout/header.php');
         <div class="offre-section">
             <h3>Contact entreprise</h3>
             <p>
-                <strong>Email :</strong> <?= htmlspecialchars($offre['entreprise_email']) ?><br>
-                <strong>Téléphone :</strong> <?= htmlspecialchars($offre['entreprise_telephone']) ?>
+                <strong>Email :</strong> {{ offre.entreprise_email }}<br>
+                <strong>Téléphone :</strong> {{ offre.entreprise_telephone }}
             </p>
         </div>
 
-        <?php 
-        // Afficher le formulaire de candidature uniquement si l'utilisateur est connecté et n'est pas un pilote
-        if (isset($_SESSION['user_id']) && (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'PILOTE')): 
-        ?>
+        {# Afficher le formulaire de candidature uniquement si l'utilisateur est connecté et n'est pas un pilote #}
+        {% if session.user_id is defined and (session.user_role is not defined or session.user_role != 'PILOTE') %}
             <div class="actions">
                 <button id="btn-show-form" class="btn-postuler">Postuler à cette offre</button>
                 
                 <div id="form-candidature" class="form-candidature" style="display: none;">
                     <h3>Postuler à cette offre</h3>
                     <form action="index.php?route=traiter_candidature" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="offre_id" value="<?= $offre['id'] ?>">
+                        <input type="hidden" name="offre_id" value="{{ offre.id }}">
                         
                         <div class="form-group">
                             <label for="cv">CV (PDF uniquement) :</label>
@@ -97,28 +94,28 @@ include(ROOT_PATH . '/templates/layout/header.php');
                     </form>
                 </div>
             </div>
-        <?php else: ?>
-            <?php if (!isset($_SESSION['user_id'])): ?>
+        {% else %}
+            {% if session.user_id is not defined %}
                 <div class="login-message">
                     <p>Connectez-vous pour postuler à cette offre</p>
                     <a href="index.php?route=login" class="btn-login">Se connecter</a>
                 </div>
-            <?php elseif (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'PILOTE'): ?>
+            {% elseif session.user_role is defined and session.user_role == 'PILOTE' %}
                 <div class="pilote-message">
                     <p>En tant que pilote, vous ne pouvez pas postuler aux offres.</p>
                 </div>
-            <?php endif; ?>
-        <?php endif; ?>
+            {% endif %}
+        {% endif %}
 
-        <?php if(isset($_SESSION['flash'])): ?>
-        <div class="alert alert-<?= $_SESSION['flash']['type'] ?>" style="margin-top: 20px; padding: 10px; border-radius: 4px; background-color: <?= $_SESSION['flash']['type'] === 'success' ? '#d4edda' : '#f8d7da' ?>; color: <?= $_SESSION['flash']['type'] === 'success' ? '#155724' : '#721c24' ?>;">
-            <?= $_SESSION['flash']['message'] ?>
+        {% if session.flash is defined %}
+        <div class="alert alert-{{ session.flash.type }}" style="margin-top: 20px; padding: 10px; border-radius: 4px; background-color: {{ session.flash.type == 'success' ? '#d4edda' : '#f8d7da' }}; color: {{ session.flash.type == 'success' ? '#155724' : '#721c24' }};">
+            {{ session.flash.message }}
         </div>
-        <?php unset($_SESSION['flash']); ?>
-        <?php endif; ?>
+        {% endif %}
     </div>
 </div>
+{% endblock %}
 
+{% block javascripts %}
 <script src="static/js/candidature.js"></script>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

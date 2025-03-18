@@ -1,34 +1,21 @@
-<?php
-include(ROOT_PATH . '/templates/layout/header.php');
+{% extends 'layout/base.twig' %}
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+{% block stylesheets %}
+    <link rel="stylesheet" href="static/css/offres.css">
+{% endblock %}
 
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-    exit();
-}
-?>
-
+{% block content %}
 <div class="container">
     <h1>Créer une nouvelle offre de stage</h1>
     
-    <form action="traiter_offre.php" method="POST" class="form-offre">
+    <form action="index.php?route=traiter_offre" method="POST" class="form-offre">
         <div class="form-group">
             <label for="entreprise_id">Entreprise</label>
             <select id="entreprise_id" name="entreprise_id" required>
                 <option value="">Sélectionnez une entreprise</option>
-                <?php
-                require_once 'config/config.php';
-                
-                $sql = "SELECT id, nom FROM Entreprises ORDER BY nom";
-                $entreprises = $conn->query($sql);
-                
-                while ($entreprise = $entreprises->fetch_assoc()): 
-                ?>
-                <option value="<?= $entreprise['id'] ?>"><?= htmlspecialchars($entreprise['nom']) ?></option>
-                <?php endwhile; ?>
+                {% for entreprise in entreprises %}
+                    <option value="{{ entreprise.id }}">{{ entreprise.nom }}</option>
+                {% endfor %}
             </select>
         </div>
         
@@ -43,9 +30,25 @@ if (!isset($_SESSION['user_id'])) {
         </div>
         
         <div class="form-group">
-            <label for="competences">Compétences requises</label>
-            <input type="text" id="competences" name="competences" placeholder="Ex: PHP, MySQL, JavaScript">
-            <p class="info">Séparez les compétences par des virgules</p>
+            <label>Compétences requises</label>
+            <div class="checkbox-grid">
+                {% if competences is empty %}
+                    <p style="grid-column: 1 / -1; text-align: center;">
+                        Aucune compétence disponible. Veuillez en ajouter d'abord.
+                    </p>
+                {% else %}
+                    {% for competence in competences %}
+                    <div class="checkbox-item">
+                        <input type="checkbox" 
+                               id="comp_{{ competence.id }}" 
+                               name="competences[]" 
+                               value="{{ competence.id }}">
+                        <label for="comp_{{ competence.id }}">{{ competence.nom }}</label>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <p class="info-text">Sélectionnez au moins une compétence requise pour l'offre.</p>
         </div>
         
         <div class="form-group">
@@ -69,5 +72,4 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </form>
 </div>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

@@ -1,19 +1,17 @@
-<?php
-include(ROOT_PATH . '/templates/layout/header.php');
-?>
+{% extends 'layout/base.twig' %}
 
-<head>
-    <link rel="stylesheet" href="static/css/variable.css">
+{% block stylesheets %}
     <link rel="stylesheet" href="static/css/dashboard.css">
-</head>
+{% endblock %}
 
+{% block content %}
 <div class="dashboard">
     <div class="dashboard-header">
         <h1>Tableau de bord</h1>
     </div>
 
     <div class="dashboard-content">
-        <?php if (isset($userPermissions['GERER_ENTREPRISES']) && $userPermissions['GERER_ENTREPRISES']): ?>
+        {% if userPermissions.GERER_ENTREPRISES is defined and userPermissions.GERER_ENTREPRISES %}
         <div class="card">
             <h2>Créer une entreprise</h2>
             <form action="index.php?route=traiter_entreprise" method="POST" class="form-entreprise">
@@ -44,9 +42,9 @@ include(ROOT_PATH . '/templates/layout/header.php');
                 </div>
             </form>
         </div>
-        <?php endif; ?>
+        {% endif %}
 
-        <?php if (isset($userPermissions['CREER_OFFRE']) && $userPermissions['CREER_OFFRE']): ?>
+        {% if userPermissions.CREER_OFFRE is defined and userPermissions.CREER_OFFRE %}
         <div class="card">
             <h2>Créer une offre</h2>
             <form action="index.php?route=traiter_offre" method="POST" class="form-offre">
@@ -56,9 +54,9 @@ include(ROOT_PATH . '/templates/layout/header.php');
                     <label for="entreprise_id">Entreprise*</label>
                     <select id="entreprise_id" name="entreprise_id" required>
                         <option value="">Sélectionnez une entreprise</option>
-                        <?php foreach ($entreprises as $entreprise): ?>
-                        <option value="<?= $entreprise['id'] ?>"><?= htmlspecialchars($entreprise['nom']) ?></option>
-                        <?php endforeach; ?>
+                        {% for entreprise in entreprises %}
+                        <option value="{{ entreprise.id }}">{{ entreprise.nom }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 
@@ -90,21 +88,21 @@ include(ROOT_PATH . '/templates/layout/header.php');
                 <div class="form-group">
                     <label>Compétences requises*</label>
                     <div class="checkbox-grid">
-                        <?php if (empty($competences)): ?>
+                        {% if competences is empty %}
                             <p style="grid-column: 1 / -1; text-align: center;">
                                 Aucune compétence disponible. Veuillez en ajouter d'abord.
                             </p>
-                        <?php else: ?>
-                            <?php foreach ($competences as $competence): ?>
+                        {% else %}
+                            {% for competence in competences %}
                             <div class="checkbox-item">
                                 <input type="checkbox" 
-                                       id="comp_<?= $competence['id'] ?>" 
+                                       id="comp_{{ competence.id }}" 
                                        name="competences[]" 
-                                       value="<?= $competence['id'] ?>">
-                                <label for="comp_<?= $competence['id'] ?>"><?= htmlspecialchars($competence['nom']) ?></label>
+                                       value="{{ competence.id }}">
+                                <label for="comp_{{ competence.id }}">{{ competence.nom }}</label>
                             </div>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <p class="info-text">Sélectionnez au moins une compétence requise pour l'offre.</p>
                 </div>
@@ -114,8 +112,7 @@ include(ROOT_PATH . '/templates/layout/header.php');
                 </div>
             </form>
         </div>
-        <?php endif; ?>
+        {% endif %}
     </div>
 </div>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

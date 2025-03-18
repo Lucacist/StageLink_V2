@@ -6,6 +6,7 @@ class AuthController extends Controller {
     private $utilisateurModel;
     
     public function __construct() {
+        parent::__construct(); // Appel au constructeur parent pour initialiser Twig
         $this->utilisateurModel = new UtilisateurModel();
     }
     

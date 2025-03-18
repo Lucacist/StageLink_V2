@@ -6,6 +6,7 @@ class WishlistController extends Controller {
     private $offreModel;
     
     public function __construct() {
+        parent::__construct(); // Appel au constructeur parent pour initialiser Twig
         $this->offreModel = new OffreModel();
     }
     

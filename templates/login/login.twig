@@ -1,7 +1,3 @@
-<?php
-$error = $error ?? "";
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -11,7 +7,7 @@ $error = $error ?? "";
     <link rel="stylesheet" href="static/css/variable.css" />
     <link rel="stylesheet" href="static/css/login.css" />
     <link rel="icon" href="static/images/favicon.svg" type="image/svg" />
-    <title><?php echo $pageTitle ?? 'Connexion - StageLink'; ?></title>
+    <title>{{ pageTitle|default('Connexion - StageLink') }}</title>
 </head>
 
 <body>
@@ -23,9 +19,9 @@ $error = $error ?? "";
                 Retrouvez toutes vos offres et candidatures en vous connectant :
             </div>
 
-            <?php if (!empty($error)): ?>
-                <div class="message"><?php echo $error; ?></div>
-            <?php endif; ?>
+            {% if error is not empty %}
+                <div class="message">{{ error }}</div>
+            {% endif %}
 
             <form method="POST" action="index.php?route=login">
                 <div class="bloc-input">
@@ -47,19 +43,19 @@ $error = $error ?? "";
 <script>
     feather.replace();
     const eye = document.querySelector(".feather-eye");
-const eyeoff = document.querySelector(".feather-eye-off");
-const passwordField = document.querySelector("input[type=password]");
-eye.addEventListener("click", () => {
-  eye.style.display = "none";
-  eyeoff.style.display = "block";
-  passwordField.type = "text";
-});
+    const eyeoff = document.querySelector(".feather-eye-off");
+    const passwordField = document.querySelector("input[type=password]");
+    eye.addEventListener("click", () => {
+      eye.style.display = "none";
+      eyeoff.style.display = "block";
+      passwordField.type = "text";
+    });
 
-eyeoff.addEventListener("click", () => {
-  eyeoff.style.display = "none";
-  eye.style.display = "block";
-  passwordField.type = "password";
-});
+    eyeoff.addEventListener("click", () => {
+      eyeoff.style.display = "none";
+      eye.style.display = "block";
+      passwordField.type = "password";
+    });
 </script>
 
 </html>

@@ -1,11 +1,12 @@
-<?php
-$pageTitle = $pageTitle ?? "Accueil - StageLink";
-include(ROOT_PATH . '/templates/layout/header.php');
-?>
+{% extends 'layout/base.twig' %}
 
-<head>
+{% block title %}Accueil - StageLink{% endblock %}
+
+{% block stylesheets %}
     <link rel="stylesheet" href="static/css/accueil.css" />
-</head>
+{% endblock %}
+
+{% block content %}
 <section>
     <div class="contain">
         <div class="bloc1">
@@ -107,24 +108,23 @@ include(ROOT_PATH . '/templates/layout/header.php');
             <div class="titre">Tout connaître<br>
                 <span class="gras">du monde de l'emploi</span>
             </div>
-            <div class="texte">Plongez dans l’actualité de l’emploi, découvrez nos conseils pour décrocher votre job
+            <div class="texte">Plongez dans l'actualité de l'emploi, découvrez nos conseils pour décrocher votre job
                 idéal, vous épanouir au travail, et accédez aux clés pour booster votre vie professionnelle.</div>
         </div>
         <div class="titre gras">Des entreprises partenaires</div>
         <div class="entreprises">
-            <img src="static/images/accueil/entreprises/amazonin logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/google-icon logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/intel logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/intellij-original logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/meta logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/microsoft logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/Netflix logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/nvidia logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/spacex logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/spotify logo.svg" alt=""><img
-                src="static/images/accueil/entreprises/Tesla logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/amazonin logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/google-icon logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/intel logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/intellij-original logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/meta logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/microsoft logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/Netflix logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/nvidia logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/spacex logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/spotify logo.svg" alt="">
+            <img src="static/images/accueil/entreprises/Tesla logo.svg" alt="">
         </div>
     </section>
 </div>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

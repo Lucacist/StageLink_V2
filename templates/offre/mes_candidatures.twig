@@ -1,54 +1,52 @@
-<?php
-include(ROOT_PATH . '/templates/layout/header.php');
-?>
+{% extends 'layout/base.twig' %}
 
-<head>
+{% block stylesheets %}
     <link rel="stylesheet" href="static/css/mes-candidatures.css">
-</head>
+{% endblock %}
 
+{% block content %}
 <div class="candidatures-container">
     <h1>Mes candidatures</h1>
 
-    <?php if (empty($candidatures)): ?>
+    {% if candidatures is empty %}
         <div class="message">Vous n'avez pas encore postulé à des offres de stage.</div>
-    <?php else: ?>
+    {% else %}
         <div class="candidatures-list">
-            <?php foreach ($candidatures as $candidature): ?>
+            {% for candidature in candidatures %}
                 <div class="candidature-item">
-                    <h2><?= htmlspecialchars($candidature['offre_titre']) ?></h2>
-                    <h3><?= htmlspecialchars($candidature['entreprise_nom']) ?></h3>
+                    <h2>{{ candidature.offre_titre }}</h2>
+                    <h3>{{ candidature.entreprise_nom }}</h3>
                     
                     <div class="candidature-details">
                         <div class="detail-group">
                             <span class="label">Date de candidature:</span>
-                            <span class="value"><?= date('d/m/Y', strtotime($candidature['date_candidature'])) ?></span>
+                            <span class="value">{{ candidature.date_candidature|date('d/m/Y') }}</span>
                         </div>
                     </div>
                     
                     <div class="lettre-motivation">
                         <h4>Ma lettre de motivation</h4>
-                        <p><?= nl2br(htmlspecialchars($candidature['lettre_motivation'])) ?></p>
+                        <p>{{ candidature.lettre_motivation|nl2br }}</p>
                     </div>
 
                     <div class="candidature-actions">
-                        <?php if(isset($candidature['cv']) && !empty($candidature['cv'])): ?>
-                            <a href="<?= htmlspecialchars($candidature['cv']) ?>" target="_blank" class="btn btn-secondary">
+                        {% if candidature.cv is defined and candidature.cv is not empty %}
+                            <a href="{{ candidature.cv }}" target="_blank" class="btn btn-secondary">
                                 <i class="fas fa-file-pdf"></i> Voir mon CV
                             </a>
-                        <?php else: ?>
+                        {% else %}
                             <button class="btn btn-disabled" disabled>
                                 <i class="fas fa-file-pdf"></i> CV non disponible
                             </button>
-                        <?php endif; ?>
+                        {% endif %}
     
-                        <a href="index.php?route=offre_details&id=<?= $candidature['offre_id'] ?>" class="btn btn-secondary">
+                        <a href="index.php?route=offre_details&id={{ candidature.offre_id }}" class="btn btn-secondary">
                             <i class="fas fa-eye"></i> Revoir l'offre
                         </a>
                     </div> 
                 </div>
-            <?php endforeach; ?>
+            {% endfor %}
         </div>
-    <?php endif; ?>
+    {% endif %}
 </div>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

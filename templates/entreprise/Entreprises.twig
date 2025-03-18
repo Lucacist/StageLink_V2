@@ -1,0 +1,60 @@
+{% extends 'layout/base.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="static/css/entreprises.css">
+    <link rel="stylesheet" href="static/css/pagination.css">
+{% endblock %}
+
+{% block content %}
+<div class="contenu">
+    <h1>Entreprises</h1>
+
+    {% if entreprises is empty %}
+        <div class="message">Aucune entreprise disponible pour le moment.</div>
+    {% else %}
+        <div class="entreprises-container">
+            {% for entreprise in entreprises %}
+                <a href="index.php?route=entreprise_details&id={{ entreprise.id }}" class="entreprise-link">
+                    <div class="container">
+                        {% if entreprise.logo is not empty %}
+                            <img src="static/images/entreprises/{{ entreprise.logo }}"
+                                alt="Logo {{ entreprise.nom }}" class="logo-entreprise">
+                        {% endif %}
+                        <div class="entreprise-info">
+                            <h2>{{ entreprise.nom }}</h2>
+                            <div class="container-description">
+                                <div class="description">
+                                    {{ entreprise.description|length > 200 ? entreprise.description|slice(0, 200) ~ '...' : entreprise.description }}
+                                </div>
+
+                                <div class="note-container">
+                                    <div class="note">
+                                        {% for i in 1..5 %}
+                                            <span class="etoile {{ i <= entreprise.note_moyenne|round ? 'active' : '' }}">★</span>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="nombre-avis">({{ entreprise.nombre_avis }} avis)</div>
+                                </div>
+                            </div>
+
+                            {% if entreprise.secteur is defined %}
+                                <div class="secteur">{{ entreprise.secteur }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+{% if pagination is defined and entreprises is not empty %}
+    <div class="pagination-container">
+        {{ pagination|raw }}
+    </div>
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+<script src="static/js/search.js"></script>
+{% endblock %}

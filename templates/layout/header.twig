@@ -1,0 +1,37 @@
+<header>
+    <div class="first-bar">
+        <div class="stagelink">StageLink</div>
+        <form onsubmit="return false;" {% if app.request.get.route == 'accueil' or app.request.get.route == 'dashboard' %}style="display: none;"{% endif %}>
+            <input type="text" id="searchInput" placeholder="{% if app.request.get.route == 'offres' %}Rechercher une offre...{% elseif app.request.get.route == 'entreprises' %}Rechercher une entreprise...{% else %}Rechercher...{% endif %}" />
+            <button type="button"><img src="static/images/search.svg" alt="Rechercher" /></button>
+        </form>
+        <div class="compte" id="compte-menu">
+            <img src="static/images/compte.svg" alt="Mon compte" />
+            <div class="nom-compte">
+                {{ session.user_prenom|default("Mon Compte") }}
+            </div>
+            <div class="compte-popup">
+                <a href="index.php?route=logout" class="logout-btn">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
+    <nav>
+        {% set current_route = app.request.get.route|default('accueil') %}
+        
+        <a href="index.php?route=accueil" class="pages {{ current_route == 'accueil' ? 'activer' : '' }}">Accueil</a>
+        
+        {% if session.user_id is defined %}
+            <a href="index.php?route=offres" class="pages {{ current_route in ['offres', 'offre_details', 'postuler'] ? 'activer' : '' }}">Offres</a>
+            <a href="index.php?route=entreprises" class="pages {{ current_route in ['entreprises', 'entreprise_details'] ? 'activer' : '' }}">Entreprises</a>
+
+            {% if session.user_role is defined and (session.user_role == 'ADMIN' or session.user_role == 'ETUDIANT') %}
+                <a href="index.php?route=mes_candidatures" class="pages {{ current_route in ['mes_candidatures', 'confirmation_candidature'] ? 'activer' : '' }}">Mes candidatures</a>
+            {% endif %}
+
+            {% if session.user_role is defined and (session.user_role == 'ADMIN' or session.user_role == 'PILOTE') %}
+                <a href="index.php?route=dashboard" class="pages {{ current_route == 'dashboard' ? 'activer' : '' }}">Dashboard</a>
+            {% endif %}
+        {% endif %}
+    </nav>
+</header>
+<script src="static/js/search.js"></script>

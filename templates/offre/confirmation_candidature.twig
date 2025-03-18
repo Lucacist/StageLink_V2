@@ -1,23 +1,10 @@
-<?php
-include(ROOT_PATH . '/templates/layout/header.php');
-// Récupérer l'ID de la candidature
-$candidature_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+{% extends 'layout/base.twig' %}
 
-// Récupérer les détails de la candidature si nécessaire
-if ($candidature_id && !isset($candidature)) {
-    require_once ROOT_PATH . '/src/Models/CandidatureModel.php';
-    $candidatureModel = new CandidatureModel();
-    $candidature = $candidatureModel->getCandidatureById($candidature_id);
-    
-    // Récupérer les détails de l'offre
-    require_once ROOT_PATH . '/app/models/OffreModel.php';
-    $offreModel = new OffreModel();
-    $offre = $offreModel->getOffreById($candidature['offre_id']);
-}
-?>
-<head>
+{% block stylesheets %}
     <link rel="stylesheet" href="static/css/confirmation.css">
-</head>
+{% endblock %}
+
+{% block content %}
 <div class="confirmation-page">
     <div class="container">
         <div class="confirmation-box">
@@ -30,18 +17,17 @@ if ($candidature_id && !isset($candidature)) {
             
             <h2>Candidature envoyée avec succès !</h2>
             
-            <?php if(isset($_SESSION['flash'])): ?>
-                <div class="alert alert-<?= $_SESSION['flash']['type'] ?>">
-                    <?= $_SESSION['flash']['message'] ?>
+            {% if session.flash is defined %}
+                <div class="alert alert-{{ session.flash.type }}">
+                    {{ session.flash.message }}
                 </div>
-                <?php unset($_SESSION['flash']); ?>
-            <?php endif; ?>
+            {% endif %}
             
-            <?php if(isset($offre)): ?>
+            {% if offre is defined %}
                 <p>Vous avez postulé avec succès à l'offre :</p>
-                <h3><?= htmlspecialchars($offre['titre']) ?></h3>
-                <p>Chez <?= htmlspecialchars($offre['entreprise_nom']) ?></p>
-            <?php endif; ?>
+                <h3>{{ offre.titre }}</h3>
+                <p>Chez {{ offre.entreprise_nom }}</p>
+            {% endif %}
             
             <p class="confirmation-info">
                 L'entreprise examinera votre candidature et vous contactera si votre profil correspond à leurs attentes.
@@ -54,5 +40,4 @@ if ($candidature_id && !isset($candidature)) {
         </div>
     </div>
 </div>
-
-<?php include(ROOT_PATH . '/templates/layout/footer.php'); ?>
+{% endblock %}

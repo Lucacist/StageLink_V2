@@ -8,6 +8,7 @@ class OffreController extends Controller {
     private $entrepriseModel;
     
     public function __construct() {
+        parent::__construct(); // Appel au constructeur parent pour initialiser Twig
         $this->offreModel = new OffreModel();
         $this->entrepriseModel = new EntrepriseModel();
     }
