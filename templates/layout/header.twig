@@ -31,6 +31,11 @@
             {% if session.user_role is defined and (session.user_role == 'ADMIN' or session.user_role == 'PILOTE') %}
                 <a href="index.php?route=dashboard" class="pages {{ current_route == 'dashboard' ? 'activer' : '' }}">Dashboard</a>
             {% endif %}
+
+            {% if session.user_role is defined and (session.user_role == 'ADMIN' or session.user_role == 'ETUDIANT') %}
+                <a href="index.php?route=wishlist" class="pages {{ current_route == 'wishlist' ? 'activer' : '' }}">Wishlist</a>
+            {% endif %}
+            
         {% endif %}
     </nav>
 </header>

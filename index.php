@@ -75,6 +75,12 @@ switch ($route) {
         $controller = new WishlistController();
         $controller->toggleLike();
         break;
+
+    case 'wishlist':
+        require_once ROOT_PATH . '/src/Controllers/WishlistController.php';
+        $controller = new WishlistController();
+        $controller->index();   
+        break;
     
     case 'rate_entreprise':
         require_once ROOT_PATH . '/src/Controllers/EntrepriseController.php';

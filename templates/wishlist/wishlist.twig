@@ -1,0 +1,75 @@
+{% extends 'layout/base.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="static/css/offres.css">
+    <link rel="stylesheet" href="static/css/variable.css">
+    <link rel="stylesheet" href="static/css/pagination.css">
+    <link rel="icon" href="static/images/favicon.svg" type="image/svg" />
+{% endblock %}
+
+{% block content %}
+<div class="contenu">
+    <h1>Ma Wishlist</h1>
+    
+    {% if offres is empty %}
+        <div class="message">Vous n'avez pas encore aimé d'offre.</div>
+    {% else %}
+        <div class="offres-container">
+            {% for offre in offres %}
+                <a href="index.php?route=offre_details&id={{ offre.id }}" class="offre-link">
+                    <div class="container">
+                        <div class="offre-title">
+                            <div class="like-container">
+                                <h2>{{ offre.titre }} H/F</h2>
+                                <button type="button"
+                                    class="like-button {% if offre.is_liked %}liked{% endif %}"
+                                    data-offre-id="{{ offre.id }}"
+                                    onclick="toggleLikeSimple(this, {{ offre.id }})">
+                                    <svg class="like-svg" xmlns="http://www.w3.org/2000/svg" fill="red"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
+                                        width="40" height="40">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="entreprise">{{ offre.entreprise_nom }}</p>
+                        </div>
+                        <div class="balise-container">
+                            <p class="balise">Stage</p>
+                            <p class="balise">{{ offre.base_remuneration }} € / mois</p>
+                        </div>
+                        <h3>Compétences requises :</h3>
+                        <div class="competences">
+                            {% if offre.competences is defined and offre.competences is iterable %}
+                                {% if offre.competences|length > 0 %}
+                                    {% for competence in offre.competences %}
+                                        <p class="balise2">{{ competence.nom }}</p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="balise2">Aucune compétence spécifiée</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="balise2">Aucune compétence spécifiée</p>
+                            {% endif %}
+                        </div>
+                        <div class="postuler">
+                            <p class="date">Du {{ offre.date_debut|date('d/m/Y') }} au {{ offre.date_fin ? offre.date_fin|date('d/m/Y') : 'Non spécifié' }}</p>
+                            <div class="button">Voir l'offre</div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <!-- Affichage de la pagination -->
+        {% if pagination is defined %}
+            {{ pagination|raw }}
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="static/js/wishlist.js"></script>
+{% endblock %}

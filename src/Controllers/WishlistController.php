@@ -4,11 +4,13 @@ require_once ROOT_PATH . '/src/Models/OffreModel.php';
 
 class WishlistController extends Controller {
     private $offreModel;
+    private $db; // Ajout de la propriété pour la connexion à la base de données
     
     public function __construct() {
         parent::__construct(); // Appel au constructeur parent pour initialiser Twig
         $this->offreModel = new OffreModel();
-    }
+        $this->db = Database::getInstance()->getConnection(); // Initialisation de la connexion à la base de données
+    }   
     
     public function toggleLike() {
         if (session_status() === PHP_SESSION_NONE) {
@@ -63,8 +65,8 @@ class WishlistController extends Controller {
             }
             
             http_response_code(500);
-            echo json_encode([
-                'success' => false,
+            echo json_encode([ 
+                'success' => false, 
                 'message' => 'Une erreur est survenue: ' . $e->getMessage()
             ]);
         }
@@ -86,7 +88,7 @@ class WishlistController extends Controller {
                 WHERE w.utilisateur_id = ?
                 ORDER BY o.date_debut DESC";
                 
-        $stmt = $this->db->prepare($sql);
+        $stmt = $this->db->prepare($sql); // Utilisation de $this->db
         $stmt->bind_param("i", $_SESSION['user_id']);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -96,7 +98,7 @@ class WishlistController extends Controller {
             $offres[] = $row;
         }
         
-        echo $this->render('like', [
+        echo $this->render('wishlist/wishlist', [
             'pageTitle' => 'Mes offres favorites - StageLink',
             'offres' => $offres
         ]);
