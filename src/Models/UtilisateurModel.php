@@ -108,5 +108,60 @@ class UtilisateurModel {
         
         return $row['count'] > 0;
     }
+    
+    public function createUser($nom, $prenom, $email, $mot_de_passe, $role_id) {
+        // Vérifier si l'email existe déjà
+        $sql = "SELECT COUNT(*) as count FROM Utilisateurs WHERE email = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        
+        if ($row['count'] > 0) {
+            return ['success' => false, 'message' => 'Un utilisateur avec cet email existe déjà.'];
+        }
+        
+        // Hacher le mot de passe
+        $hashedPassword = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+        
+        // Insérer le nouvel utilisateur
+        $sql = "INSERT INTO Utilisateurs (nom, prenom, email, mot_de_passe, role_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ssssi", $nom, $prenom, $email, $hashedPassword, $role_id);
+        
+        if ($stmt->execute()) {
+            $insertId = $stmt->insert_id;
+            return ['success' => true, 'id' => $insertId];
+        } else {
+            return ['success' => false, 'message' => 'Erreur lors de la création de l\'utilisateur: ' . $stmt->error];
+        }
+    }
+    
+    public function getAllRoles() {
+        $sql = "SELECT * FROM Roles";
+        $result = $this->db->query($sql);
+        
+        $roles = [];
+        while ($row = $result->fetch_assoc()) {
+            $roles[] = $row;
+        }
+        
+        return $roles;
+    }
+    
+    public function getRoleIdByCode($roleCode) {
+        $sql = "SELECT id FROM Roles WHERE code = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $roleCode);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($row = $result->fetch_assoc()) {
+            return $row['id'];
+        }
+        
+        return null;
+    }
 }
 ?>

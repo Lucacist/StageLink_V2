@@ -2,6 +2,24 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="static/css/dashboard.css">
+    <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        .alert-success {
+            color: #3c763d;
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+        }
+        .alert-error {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -9,6 +27,18 @@
     <div class="dashboard-header">
         <h1>Tableau de bord</h1>
     </div>
+
+    {% if error is defined and error %}
+    <div class="alert alert-error">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    {% if success is defined and success %}
+    <div class="alert alert-success">
+        {{ success }}
+    </div>
+    {% endif %}
 
     <div class="dashboard-content">
         {% if userPermissions.GERER_ENTREPRISES is defined and userPermissions.GERER_ENTREPRISES %}
@@ -109,6 +139,51 @@
                 
                 <div class="form-actions">
                     <button type="submit" class="btn-submit">Créer l'offre</button>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        
+        {% if userPermissions.GERER_UTILISATEURS is defined and userPermissions.GERER_UTILISATEURS or session.user_role == 'ADMIN' or session.user_role == 'PILOTE' %}
+        <div class="card">
+            <h2>Créer un utilisateur</h2>
+            
+            <form action="index.php?route=traiter_utilisateur" method="POST" class="form-utilisateur">
+                <input type="hidden" name="action" value="create">
+                
+                <div class="form-group">
+                    <label for="nom">Nom*</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prenom">Prénom*</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email*</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mot_de_passe">Mot de passe*</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">Rôle*</label>
+                    <select id="role" name="role" required>
+                        <option value="">Sélectionnez un rôle</option>
+                        {% if session.user_role == 'ADMIN' %}
+                            <option value="PILOTE">Pilote</option>
+                        {% endif %}
+                        <option value="ETUDIANT">Étudiant</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Créer l'utilisateur</button>
                 </div>
             </form>
         </div>

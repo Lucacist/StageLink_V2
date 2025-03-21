@@ -111,6 +111,12 @@ switch ($route) {
         $controller = new OffreController();
         $controller->traiter();
         break;
+    
+    case 'traiter_utilisateur':
+        require_once ROOT_PATH . '/src/Controllers/DashboardController.php';
+        $controller = new DashboardController();
+        $controller->traiterUtilisateur();
+        break;
         
     case 'profil':
         require_once ROOT_PATH . '/src/Controllers/ProfilController.php';

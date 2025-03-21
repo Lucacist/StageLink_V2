@@ -71,8 +71,10 @@ class Controller {
     protected function redirect($route, $params = []) {
         $url = 'index.php?route=' . $route;
         
-        foreach ($params as $key => $value) {
-            $url .= '&' . $key . '=' . urlencode($value);
+        if (!empty($params)) {
+            foreach ($params as $key => $value) {
+                $url .= '&' . $key . '=' . urlencode($value);
+            }
         }
         
         header('Location: ' . $url);
